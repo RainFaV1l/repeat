@@ -11,6 +11,7 @@ export function HeaderComponent() {
                         <ul className={styles.menu}>
                             <li><Link to={'/'}>Главная</Link></li>
                             <li><Link to={'/catalog'}>Каталог</Link></li>
+                            <li><Link to={'/cart'}>Корзина</Link></li>
                         </ul>
                     </div>
                 </div>
