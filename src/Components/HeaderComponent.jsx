@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css"
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
 
 export function HeaderComponent() {
+    const [cartModal, setCartModal] = useContext(AppContext)
     return (
         <>
             <header className={styles.header}>
@@ -11,7 +14,7 @@ export function HeaderComponent() {
                         <ul className={styles.menu}>
                             <li><Link to={'/'}>Главная</Link></li>
                             <li><Link to={'/catalog'}>Каталог</Link></li>
-                            <li><Link to={'/cart'}>Корзина</Link></li>
+                            <li><button onClick={() => setCartModal(true)}>Корзина</button></li>
                         </ul>
                     </div>
                 </div>
