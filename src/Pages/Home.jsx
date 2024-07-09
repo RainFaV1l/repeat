@@ -10,6 +10,16 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/effect-cube';
 
 export function Home() {
+    const slides = [
+        {
+            id: 1,
+            name: 'Home',
+        },
+        {
+            id: 2,
+            name: 'Catalog',
+        },
+    ]
     return (
         <>
             <div className={styles.home}>
@@ -33,30 +43,18 @@ export function Home() {
                     onSlideChange={() => console.log('slide change')}
                     onSwiper={(swiper) => console.log(swiper)}
                 >
-                    <SwiperSlide>
-                        <div className={styles.banner}>
-                            <h3>Товар 1</h3>
-                            <img src="/images/home/banner.jpg" alt="Картинка" />
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className={styles.banner}>
-                            <h3>Товар 2</h3>
-                            <img src="/images/home/banner.jpg" alt="Картинка" />
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className={styles.banner}>
-                            <h3>Товар 3</h3>
-                            <img src="/images/home/banner.jpg" alt="Картинка" />
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className={styles.banner}>
-                            <h3>Товар 4</h3>
-                            <img src="/images/home/banner.jpg" alt="Картинка" />
-                        </div>
-                    </SwiperSlide>
+                    {
+                        slides.map((slide, index) => {
+                            return (
+                                <SwiperSlide key={index}>
+                                    <div className={styles.banner}>
+                                        <h3>{ slide.name }</h3>
+                                        <img src="/images/home/banner.jpg" alt="Картинка" />
+                                    </div>
+                                </SwiperSlide>
+                            )
+                        })
+                    }
                 </Swiper>
             </div>
         </>
