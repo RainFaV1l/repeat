@@ -16,3 +16,8 @@
     object-fit: cover;
     object-position: bottom;
 }
+
+.slider {
+    height: 600px;
+    width: 100%;
+}
