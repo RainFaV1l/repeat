@@ -4,6 +4,7 @@
     height: 100%;
     width: 100%;
     background-color: rgba(0, 0, 0,25%);
+    z-index: 10;
 }
 
 .cartModal {
@@ -43,6 +44,9 @@
     flex-direction: column;
     gap: 30px;
     padding: 30px;
+    overflow-y: auto;
+    height: 100%;
+    padding-bottom: 70px;
 }
 
 .cartModalItem {
@@ -75,4 +79,20 @@
 .cartModalItem span {
     color: chartreuse;
     font-weight: bold;
+}
+
+.cartModalItemRow {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.cartModalItemRow div {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.cartModalItemRow div span {
+    cursor: pointer;
 }

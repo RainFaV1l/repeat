@@ -8,10 +8,11 @@ import { Cart } from "../Components/Cart";
 export function Root() {
 
     const [cartModal, setCartModal] = useState(false)
+    const [cart, setCart] = useState([])
 
     return (
         <>
-            <AppContext.Provider value={[cartModal, setCartModal]}>
+            <AppContext.Provider value={[cartModal, setCartModal, cart, setCart]}>
                 <div className="wrapper">
                     { cartModal ? <Cart/> : '' }
                     <HeaderComponent/>
