@@ -1,48 +1,30 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { PageHeaderComponent } from "../Components/PageHeaderComponent"
 import styles from "./Catalog.module.css"
 import { LoadingComponent } from "../Components/LoadingComponent"
-import { AppContext } from "../context/AppContext"
-import { Link } from "react-router-dom"
+import { Product } from "../Components/Product"
 
 export function Catalog() {
 
-    const [cartModal, setCartModal, cart, setCart] = useContext(AppContext)
     const [products, setProducts] = useState([])
+    const [filteredProducts, setFilteredProducts] = useState([])
     const [loading, setLoading] = useState(true)
+    const [search, setSearch] = useState('')
 
     useEffect(() => {
-        if(!loading) return
-        fetch('https://dummyjson.com/products')
-        .then(response => response.json())
-        .then(json => {
-            setProducts(json.products)
-            setLoading(false)
-        })
-    }, [loading])
-
-    const addToCart = (product) => {
-        const exists = cart.find((item) => item.id === product.id)
-        if(!exists) {
-            // Без количества
-            // cart.push(product)
-
-            // С учетом количества
-            const newCart = [
-                ...cart,
-                {
-                    ...product,
-                    quantity: 1,
-                }
-            ]
-
-            setCart(newCart)
+        if(loading) {
+            fetch('https://dummyjson.com/products')
+            .then(response => response.json())
+            .then(json => {
+                setProducts(json.products)
+                setLoading(false)
+            })
         }
-    }
-
-    const check = (id) => {
-        return cart.find((item) => item.id === id)
-    }
+        const filteredProducts = products.filter(product => {
+            return product.title.toLowerCase().includes(search.toLowerCase())
+        })
+        setFilteredProducts(filteredProducts)
+    }, [loading, search])
 
     return (
         <>
@@ -50,27 +32,23 @@ export function Catalog() {
             <LoadingComponent loading={loading}/>
             <div className={styles.products}>
                 <PageHeaderComponent title="Каталог товаров" subtitle="Лучшие товары только у нас!"/>
+                <div className={styles.filter}>
+                    <input type="text" placeholder="Поиск товаров по названию" onChange={(event) => setSearch(event.target.value)}/>
+                </div>
                 <div className={styles.products__list}>
                     {
-                        products.map((product) => {
-                            return (
-                                <div key={product.id} className={styles.products__item}>
-                                    <div className={styles.products__item__header}>
-                                        <h2>{product.title}</h2>
-                                        <p>{product.description}</p>
-                                    </div>
-                                    <div className={styles.products__item__footer}>
-                                        <p className={styles.products__item__price}>{product.price} $</p>
-                                        {
-                                            !check(product.id) ? 
-                                            <button onClick={() => addToCart(product)}>Добавить в корзину</button>
-                                            : <button onClick={() => addToCart(product)}>Товар в корзине</button>
-                                        }
-                                    </div>
-                                    <Link to={`/products/${product.id}`}>Подробнее</Link>
-                                </div>
-                            )
-                        })
+                        search ? 
+                            filteredProducts.map((product) => {
+                                return (
+                                    <Product key={product.id} product={product}/>
+                                )
+                            })
+                            :
+                            products.map((product) => {
+                                return (
+                                    <Product key={product.id} product={product}/>
+                                )
+                            })
                     }
                 </div>
             </div>

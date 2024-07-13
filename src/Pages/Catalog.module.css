@@ -11,29 +11,17 @@
     gap: 30px;
 }
 
-.products__item {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    gap: 15px;
-    padding: 15px;
-    border-radius: 7px;
-    border: 1px solid white;
-    width: 28.8%;
-}
-
-.products__item__header {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.products__item__price {
-    color: chartreuse;
-}
-
-.products__item__footer {
+.filter {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     justify-content: space-between;
+    gap: 30px;
+}
+
+.filter input {
+    padding: 15px 30px;
+    width: 350px;
+    border: 1px solid white;
+    border-radius: 7px;
 }
