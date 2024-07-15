@@ -1,11 +1,13 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import {AppContext} from "./../context/AppContext"
 import styles from "./Product.module.css"
 import { Link } from "react-router-dom"
+import { ChevronDownIcon } from "@heroicons/react/16/solid"
 
 export function Product({product}) {
 
     const [cartModal, setCartModal, cart, setCart] = useContext(AppContext)
+    const [dimensions, setDimensions] = useState(false)
 
     const addToCart = (product) => {
         const exists = cart.find((item) => item.id === product.id)
@@ -30,12 +32,30 @@ export function Product({product}) {
         return cart.find((item) => item.id === id)
     }
 
+    // Перебор объектов
+    const showDimensions = (dimensions) => {
+        for(const key in dimensions) {
+            console.log(dimensions[key])
+        }
+    }
+
     return (
         <>
             <div className={styles.products__item}>
                 <div className={styles.products__item__header}>
                     <h2>{product.title}</h2>
                     <p>{product.description}</p>
+                    <button onClick={() => setDimensions(!dimensions)}><ChevronDownIcon className={dimensions ? `${styles.show} size-8` : 'size-8'}/></button>
+                    {
+                        dimensions ? 
+                            <div>
+                                <p>Width: {product.dimensions.width}</p>
+                                <p>Height: {product.dimensions.height}</p>
+                                <p>Depth: {product.dimensions.depth}</p>
+                            </div>
+                            :
+                            ''
+                    }
                 </div>
                 <div className={styles.products__item__footer}>
                     <p className={styles.products__item__price}>{product.price} $</p>
